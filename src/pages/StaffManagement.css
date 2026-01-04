@@ -59,3 +59,27 @@
 .font-medium {
     font-weight: 500;
 }
+
+.edit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #64748b;
+    transition: all 0.2s;
+    border-radius: 6px;
+}
+
+.edit-btn:hover {
+    background: #f1f5f9;
+    color: #667eea;
+}
+
+.edit-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}

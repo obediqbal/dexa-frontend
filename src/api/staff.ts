@@ -16,4 +16,9 @@ export const staffApi = {
         const response = await client.post<RegisterStaffResponse>('/admin/staff/register', data);
         return response.data;
     },
+
+    updateStaff: async (id: string, data: Partial<Staff>) => {
+        const response = await client.patch<Staff>(`/admin/staff/${id}`, data);
+        return response.data;
+    },
 };

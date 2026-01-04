@@ -1,20 +1,18 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../context';
-import { UserProfileDropdown, DataTable, CreateStaffModal } from '../components';
+import { useState, useEffect, useMemo } from 'react';
+import { Navbar, DataTable, CreateStaffModal } from '../components';
 import { staffApi } from '../api';
 import { Staff, SortableField } from '../types/staff';
 import { createColumnHelper, SortingState, ColumnFiltersState } from '@tanstack/react-table';
-import { PlusIcon } from '@heroicons/react/24/solid';
+import { PlusIcon, PencilIcon } from '@heroicons/react/24/solid';
 import debounce from 'lodash/debounce';
 import './Pages.css';
 import './StaffManagement.css';
 
 export function StaffManagement() {
-    const { isAdmin } = useAuth();
     const [staff, setStaff] = useState<Staff[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedStaff, setSelectedStaff] = useState<Staff | null>(null);
 
     // Query State
     const [pageIndex, setPageIndex] = useState(0);
@@ -68,6 +66,11 @@ export function StaffManagement() {
         // return () => debouncedFetch.cancel();
     }, [pageIndex, pageSize, sorting, columnFilters, debouncedFetch]);
 
+    const handleEditStaff = (staff: Staff) => {
+        setSelectedStaff(staff);
+        setIsModalOpen(true);
+    };
+
     const columnHelper = createColumnHelper<Staff>();
 
     const columns = useMemo(() => [
@@ -111,31 +114,30 @@ export function StaffManagement() {
             cell: info => new Date(info.getValue()).toLocaleDateString(),
             enableColumnFilter: false,
         }),
+        columnHelper.display({
+            id: 'actions',
+            header: '',
+            cell: info => (
+                <button
+                    className="edit-btn"
+                    onClick={() => handleEditStaff(info.row.original)}
+                    title="Edit staff"
+                >
+                    <PencilIcon className="edit-icon" />
+                </button>
+            ),
+        }),
     ], []);
 
     return (
         <div className="page-container">
-            <nav className="navbar">
-                <div className="nav-brand">
-                    <span className="logo-not">Not</span><span className="logo-talenta">Talenta</span>
-                </div>
-                <div className="nav-links">
-                    <Link to="/" className="nav-link">Home</Link>
-                    {isAdmin && (
-                        <>
-                            <Link to="/admin/staff" className="nav-link active">Staff Management</Link>
-                            <Link to="/admin/attendance" className="nav-link">Staff Attendance</Link>
-                        </>
-                    )}
-                </div>
-                <UserProfileDropdown />
-            </nav>
+            <Navbar activePage="staff" />
 
             <main className="main-content">
                 <div className="page-header staff-header">
                     <div>
-                        <h1>Staff Management</h1>
-                        <p>Manage your organization's staff members</p>
+                        <h1>Manajemen Staf</h1>
+                        <p>Admin dapat melihat daftar, melakukan penambahan, atau pengubahan terhadap data karyawan pada laman ini</p>
                     </div>
                 </div>
 
@@ -165,8 +167,12 @@ export function StaffManagement() {
 
             <CreateStaffModal
                 isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
+                onClose={() => {
+                    setIsModalOpen(false);
+                    setSelectedStaff(null);
+                }}
                 onSuccess={() => debouncedFetch(pageIndex, pageSize, sorting, columnFilters)}
+                staff={selectedStaff}
             />
         </div>
     );
