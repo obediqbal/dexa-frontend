@@ -3,7 +3,9 @@ import { Attendance, PaginatedResponse, AttendanceHistoryQuery } from '../types'
 
 export const attendanceApi = {
     getTodayAttendance: async (): Promise<Attendance | null> => {
-        const response = await client.get<Attendance | null>('/attendance/today');
+        // Get user's timezone (e.g., 'Asia/Jakarta', 'America/New_York')
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const response = await client.get<Attendance | null>(`/attendance/today?timezone=${encodeURIComponent(timezone)}`);
         return response.data;
     },
 
