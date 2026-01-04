@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../context';
-import { UserProfileDropdown, ClockInOutCard, AttendanceCalendar } from '../components';
+import { Navbar, ClockInOutCard, AttendanceCalendar } from '../components';
 import { attendanceApi } from '../api';
 import { Attendance } from '../types';
 import './Home.css';
 
 export function Home() {
-    const { isAdmin } = useAuth();
     const [todayAttendance, setTodayAttendance] = useState<Attendance | null>(null);
     const [isLoadingToday, setIsLoadingToday] = useState(true);
     const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -42,21 +39,7 @@ export function Home() {
 
     return (
         <div className="home-container">
-            <nav className="home-navbar">
-                <div className="nav-brand">
-                    <span className="logo-not">Not</span><span className="logo-talenta">Talenta</span>
-                </div>
-                <div className="nav-links">
-                    <Link to="/" className="nav-link active">Home</Link>
-                    {isAdmin && (
-                        <>
-                            <Link to="/admin/staff" className="nav-link">Staff Management</Link>
-                            <Link to="/admin/attendance" className="nav-link">Staff Attendance</Link>
-                        </>
-                    )}
-                </div>
-                <UserProfileDropdown />
-            </nav>
+            <Navbar activePage="home" />
 
             <main className="home-content">
                 <div className="page-header">
