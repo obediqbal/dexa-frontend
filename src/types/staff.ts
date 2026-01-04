@@ -14,6 +14,65 @@ export interface Staff {
 
 export type UploadStatus = 'PENDING' | 'COMPLETED' | 'FAILED';
 
+// Query types matching backend
+export const SORTABLE_FIELDS = [
+    'email',
+    'firstName',
+    'lastName',
+    'phone',
+    'department',
+    'position',
+    'hireDate',
+    'isActive',
+    'createdAt',
+] as const;
+
+export type SortableField = (typeof SORTABLE_FIELDS)[number];
+
+export type FilterBy = Partial<Record<SortableField, string | boolean | null>>;
+
+export interface StaffQuery {
+    page?: number;
+    limit?: number;
+    ids?: string[];
+    sortBy?: SortableField;
+    sortOrder?: 'asc' | 'desc';
+    filterBy?: string; // JSON string of FilterBy
+}
+
+export enum Role {
+    STAFF = 'STAFF',
+    ADMIN = 'ADMIN',
+}
+
+export interface RegisterStaffRequest {
+    // Auth fields
+    email: string;
+    password?: string; // Optional in frontend if auto-generated, but required by backend DTO
+    role?: Role;
+
+    // Staff fields
+    firstName: string;
+    lastName: string;
+    phone?: string;
+    department?: string;
+    position?: string;
+    hireDate?: string;
+    isActive?: boolean;
+}
+
+export interface RegisterStaffResponse {
+    staff: {
+        id: string;
+        email: string;
+        firstName: string;
+        lastName: string;
+    };
+    auth: {
+        userId: string;
+        accessToken: string;
+    };
+}
 export interface Attendance {
     id: string;
     staffId: string;
