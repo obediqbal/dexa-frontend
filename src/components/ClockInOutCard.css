@@ -6,6 +6,32 @@
     padding: 1.5rem;
 }
 
+.attendance-warning {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    color: #fca5a5;
+    /* Fallback */
+}
+
+.attendance-warning svg {
+    width: 20px;
+    height: 20px;
+    color: #f59e0b;
+    flex-shrink: 0;
+}
+
+.attendance-warning span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #fbbf24;
+}
+
 .clock-info {
     margin-bottom: 1.5rem;
 }
