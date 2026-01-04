@@ -99,7 +99,7 @@ export function CreateStaffModal({ isOpen, onClose, onSuccess, staff }: CreateSt
         <div className="modal-overlay">
             <div className="modal-content">
                 <div className="modal-header">
-                    <h2>{isEditMode ? 'Edit Staff' : 'Tambah staff baru'}</h2>
+                    <h2>{isEditMode ? 'Edit Staf' : 'Tambah staf baru'}</h2>
                     <button className="close-btn" onClick={onClose}>&times;</button>
                 </div>
 
@@ -203,10 +203,10 @@ export function CreateStaffModal({ isOpen, onClose, onSuccess, staff }: CreateSt
                                     checked={formData.isActive}
                                     onChange={(e) => setFormData(prev => ({ ...prev, isActive: e.target.checked }))}
                                 />
-                                <span>Staff Aktif</span>
+                                <span>Staf Aktif</span>
                             </label>
                             <p className="field-hint">
-                                {formData.isActive ? 'Staff dapat login dan melakukan presensi' : 'Staff tidak dapat login'}
+                                {formData.isActive ? 'Staf dapat login dan melakukan presensi' : 'Staff tidak dapat login'}
                             </p>
                         </div>
                     )}
@@ -216,7 +216,7 @@ export function CreateStaffModal({ isOpen, onClose, onSuccess, staff }: CreateSt
                             Batal
                         </button>
                         <button type="submit" className="btn-submit" disabled={isLoading}>
-                            {isLoading ? (isEditMode ? 'Menyimpan...' : 'Mendaftarkan...') : (isEditMode ? 'Simpan Perubahan' : 'Tambahkan Staff')}
+                            {isLoading ? (isEditMode ? 'Menyimpan...' : 'Mendaftarkan...') : (isEditMode ? 'Simpan Perubahan' : 'Tambahkan Staf')}
                         </button>
                     </div>
                 </form>

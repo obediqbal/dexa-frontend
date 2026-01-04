@@ -144,7 +144,7 @@ export function StaffManagement() {
                 <div className="staff-actions">
                     <button className="add-staff-btn" onClick={() => setIsModalOpen(true)}>
                         <PlusIcon className="btn-icon" />
-                        Tambah staff baru
+                        Tambah staf baru
                     </button>
                 </div>
 
