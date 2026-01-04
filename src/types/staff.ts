@@ -102,3 +102,64 @@ export interface AttendanceHistoryQuery {
     startDate?: string;
     endDate?: string;
 }
+
+// Staff Attendance types
+export interface StaffAttendance {
+    // Attendance fields
+    id: string;
+    staffId: string;
+    clockIn: string;
+    clockOut: string | null;
+    clockInPhotoUrl: string | null;
+    clockOutPhotoUrl: string | null;
+    notes: string | null;
+    createdAt: string;
+    updatedAt: string;
+
+    // Embedded staff data
+    staff: {
+        id: string;
+        email: string;
+        firstName: string;
+        lastName: string;
+        phone?: string;
+        department?: string;
+        position?: string;
+        isActive: boolean;
+    };
+}
+
+export const STAFF_ATTENDANCE_SORTABLE_FIELDS = [
+    'firstName',
+    'lastName',
+    'email',
+    'department',
+    'position',
+    'clockIn',
+    'clockOut',
+    'createdAt',
+] as const;
+
+export type StaffAttendanceSortableField = (typeof STAFF_ATTENDANCE_SORTABLE_FIELDS)[number];
+
+export interface StaffAttendanceQuery {
+    page?: number;
+    limit?: number;
+    sortBy?: StaffAttendanceSortableField;
+    sortOrder?: 'asc' | 'desc';
+
+    // Staff filters
+    staffIds?: string[];
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    department?: string;
+    position?: string;
+    isActive?: boolean;
+
+    // Attendance date range filters
+    clockInStart?: string;
+    clockInEnd?: string;
+    clockOutStart?: string;
+    clockOutEnd?: string;
+}

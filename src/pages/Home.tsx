@@ -43,7 +43,7 @@ export function Home() {
 
             <main className="home-content">
                 <div className="page-header">
-                    <h1>Presensi Karyawan</h1>
+                    <h1>Jadwal Presensimu</h1>
                 </div>
 
                 <div className="today-status">
