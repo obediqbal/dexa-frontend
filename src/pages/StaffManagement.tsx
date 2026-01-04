@@ -137,7 +137,7 @@ export function StaffManagement() {
                 <div className="page-header staff-header">
                     <div>
                         <h1>Manajemen Staf</h1>
-                        <p>Admin dapat melihat daftar, melakukan penambahan, atau pengubahan terhadap data karyawan pada laman ini</p>
+                        <p>Lihat, tambah, dan ubah data staf</p>
                     </div>
                 </div>
 
