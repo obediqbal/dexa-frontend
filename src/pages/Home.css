@@ -12,6 +12,8 @@
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 100;
 }
 
 .nav-brand {
@@ -67,12 +69,7 @@
 }
 
 .page-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
 .page-header h1 {
@@ -85,6 +82,7 @@
 .today-status {
     display: flex;
     gap: 2rem;
+    margin-bottom: 2rem;
 }
 
 .status-item {

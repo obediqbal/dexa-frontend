@@ -61,19 +61,20 @@ export function Home() {
             <main className="home-content">
                 <div className="page-header">
                     <h1>Presensi Karyawan</h1>
-                    <div className="today-status">
-                        <div className="status-item">
-                            <span className="status-label">Clock-in:</span>
-                            <span className={`status-value ${todayAttendance?.clockIn ? 'active' : ''}`}>
-                                {isLoadingToday ? '...' : formatTime(todayAttendance?.clockIn ?? null)}
-                            </span>
-                        </div>
-                        <div className="status-item">
-                            <span className="status-label">Clock-out:</span>
-                            <span className={`status-value ${todayAttendance?.clockOut ? 'active' : ''}`}>
-                                {isLoadingToday ? '...' : formatTime(todayAttendance?.clockOut ?? null)}
-                            </span>
-                        </div>
+                </div>
+
+                <div className="today-status">
+                    <div className="status-item">
+                        <span className="status-label">Clock-in:</span>
+                        <span className={`status-value ${todayAttendance?.clockIn ? 'active' : ''}`}>
+                            {isLoadingToday ? '...' : formatTime(todayAttendance?.clockIn ?? null)}
+                        </span>
+                    </div>
+                    <div className="status-item">
+                        <span className="status-label">Clock-out:</span>
+                        <span className={`status-value ${todayAttendance?.clockOut ? 'active' : ''}`}>
+                            {isLoadingToday ? '...' : formatTime(todayAttendance?.clockOut ?? null)}
+                        </span>
                     </div>
                 </div>
 
