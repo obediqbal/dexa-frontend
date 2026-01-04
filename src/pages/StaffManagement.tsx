@@ -1,9 +1,10 @@
-import { useAuth } from '../context';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context';
+import { UserProfileDropdown } from '../components';
 import './Pages.css';
 
 export function StaffManagement() {
-    const { user, logout, isAdmin } = useAuth();
+    const { isAdmin } = useAuth();
 
     return (
         <div className="page-container">
@@ -20,13 +21,7 @@ export function StaffManagement() {
                         </>
                     )}
                 </div>
-                <div className="nav-user">
-                    <span className="user-email">{user?.email}</span>
-                    <span className="user-role-badge">{user?.role}</span>
-                    <button className="logout-button" onClick={logout}>
-                        Sign Out
-                    </button>
-                </div>
+                <UserProfileDropdown />
             </nav>
 
             <main className="main-content">

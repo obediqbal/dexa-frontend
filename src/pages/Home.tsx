@@ -1,13 +1,48 @@
-import { useAuth } from '../context';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Pages.css';
+import { useAuth } from '../context';
+import { UserProfileDropdown, ClockInOutCard, AttendanceCalendar } from '../components';
+import { attendanceApi } from '../api';
+import { Attendance } from '../types';
+import './Home.css';
 
 export function Home() {
-    const { user, logout, isAdmin } = useAuth();
+    const { isAdmin } = useAuth();
+    const [todayAttendance, setTodayAttendance] = useState<Attendance | null>(null);
+    const [isLoadingToday, setIsLoadingToday] = useState(true);
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+    const fetchTodayAttendance = async () => {
+        try {
+            const data = await attendanceApi.getTodayAttendance();
+            setTodayAttendance(data);
+        } catch (error) {
+            console.error('Failed to fetch today attendance:', error);
+        } finally {
+            setIsLoadingToday(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchTodayAttendance();
+    }, []);
+
+    const handleClockAction = () => {
+        fetchTodayAttendance();
+        setRefreshTrigger((prev) => prev + 1);
+    };
+
+    const formatTime = (dateString: string | null) => {
+        if (!dateString) return '-';
+        return new Date(dateString).toLocaleTimeString('id-ID', {
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+    };
 
     return (
-        <div className="page-container">
-            <nav className="navbar">
+        <div className="home-container">
+            <nav className="home-navbar">
                 <div className="nav-brand">
                     <span className="logo-not">Not</span><span className="logo-talenta">Talenta</span>
                 </div>
@@ -20,26 +55,38 @@ export function Home() {
                         </>
                     )}
                 </div>
-                <div className="nav-user">
-                    <span className="user-email">{user?.email}</span>
-                    <span className="user-role-badge">{user?.role}</span>
-                    <button className="logout-button" onClick={logout}>
-                        Sign Out
-                    </button>
-                </div>
+                <UserProfileDropdown />
             </nav>
 
-            <main className="main-content">
+            <main className="home-content">
                 <div className="page-header">
-                    <h1>Attendance Dashboard</h1>
-                    <p>Track your work from home attendance</p>
+                    <h1>Presensi Karyawan</h1>
+                    <div className="today-status">
+                        <div className="status-item">
+                            <span className="status-label">Clock-in:</span>
+                            <span className={`status-value ${todayAttendance?.clockIn ? 'active' : ''}`}>
+                                {isLoadingToday ? '...' : formatTime(todayAttendance?.clockIn ?? null)}
+                            </span>
+                        </div>
+                        <div className="status-item">
+                            <span className="status-label">Clock-out:</span>
+                            <span className={`status-value ${todayAttendance?.clockOut ? 'active' : ''}`}>
+                                {isLoadingToday ? '...' : formatTime(todayAttendance?.clockOut ?? null)}
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
-                <div className="placeholder-card">
-                    <div className="placeholder-icon">📋</div>
-                    <h2>Attendance Page</h2>
-                    <p>Your attendance tracking features will appear here.</p>
-                    <p className="placeholder-note">Coming soon: Clock in/out, attendance history, and more.</p>
+                <div className="home-grid">
+                    <div className="grid-left">
+                        <ClockInOutCard
+                            todayAttendance={todayAttendance}
+                            onClockAction={handleClockAction}
+                        />
+                    </div>
+                    <div className="grid-right">
+                        <AttendanceCalendar refreshTrigger={refreshTrigger} />
+                    </div>
                 </div>
             </main>
         </div>
