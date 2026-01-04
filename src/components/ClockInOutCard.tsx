@@ -157,7 +157,7 @@ export function ClockInOutCard({ todayAttendance, onClockAction }: ClockInOutCar
             {error && <div className="clock-error">{error}</div>}
 
             <button
-                className={`clock-button ${isClockedIn ? 'clock-out' : 'clock-in'}`}
+                className={`clock-button ${isClockedOut ? 'clock-done' : isClockedIn ? 'clock-out' : 'clock-in'}`}
                 onClick={handleClockAction}
                 disabled={isLoading || isClockedOut}
             >
