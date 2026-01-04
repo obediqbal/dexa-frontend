@@ -1,6 +1,6 @@
 .home-container {
     min-height: 100vh;
-    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    background: #f8fafc;
 }
 
 /* Navigation */
@@ -9,8 +9,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem 2rem;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
+    background: #1a1c2e;
+    /* Keep navbar dark */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
     z-index: 100;
@@ -75,7 +75,7 @@
 .page-header h1 {
     font-size: 2rem;
     font-weight: 700;
-    color: #ffffff;
+    color: #1e293b;
     margin: 0;
 }
 
@@ -92,19 +92,19 @@
 }
 
 .status-label {
-    color: rgba(255, 255, 255, 0.6);
+    color: #64748b;
     font-size: 0.95rem;
 }
 
 .status-value {
-    color: rgba(255, 255, 255, 0.4);
+    color: #334155;
     font-size: 1rem;
     font-weight: 600;
     font-family: 'Courier New', monospace;
 }
 
 .status-value.active {
-    color: #10b981;
+    color: #059669;
 }
 
 /* Grid Layout */

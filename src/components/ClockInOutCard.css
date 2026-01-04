@@ -1,22 +1,21 @@
 .clock-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
     border-radius: 20px;
     padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .attendance-warning {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    background: rgba(245, 158, 11, 0.15);
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    background: #fffbeb;
+    border: 1px solid #fcd34d;
     border-radius: 12px;
     padding: 0.75rem 1rem;
     margin-bottom: 1.5rem;
-    color: #fca5a5;
-    /* Fallback */
+    color: #b45309;
 }
 
 .attendance-warning svg {
@@ -29,7 +28,7 @@
 .attendance-warning span {
     font-size: 0.9rem;
     font-weight: 500;
-    color: #fbbf24;
+    color: #b45309;
 }
 
 .clock-info {
@@ -40,7 +39,7 @@
     display: flex;
     justify-content: space-between;
     padding: 0.5rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid #f1f5f9;
 }
 
 .info-row:last-child {
@@ -48,22 +47,20 @@
 }
 
 .info-label {
-    color: rgba(255, 255, 255, 0.6);
+    color: #64748b;
     font-size: 0.9rem;
 }
 
 .info-value {
-    color: #ffffff;
-    font-weight: 500;
+    color: #0f172a;
+    font-weight: 600;
 }
 
 .info-value.time {
     font-family: 'Courier New', monospace;
     font-size: 1.1rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #0f172a;
+    font-weight: 700;
 }
 
 .photo-section {
@@ -72,7 +69,7 @@
 
 .photo-label {
     display: block;
-    color: rgba(255, 255, 255, 0.8);
+    color: #475569;
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
 }
@@ -80,8 +77,8 @@
 .photo-upload {
     width: 100%;
     min-height: 150px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 2px dashed rgba(255, 255, 255, 0.2);
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -92,24 +89,25 @@
 }
 
 .photo-upload:hover {
-    border-color: rgba(102, 126, 234, 0.5);
-    background: rgba(102, 126, 234, 0.05);
+    border-color: #667eea;
+    background: #eff6ff;
 }
 
 .photo-upload.has-photo {
     border-style: solid;
-    border-color: rgba(102, 126, 234, 0.4);
+    border-color: #cbd5e1;
 }
 
 .photo-upload.disabled {
-    opacity: 0.5;
+    opacity: 0.6;
+    background: #f1f5f9;
     cursor: not-allowed;
     border-style: dashed;
 }
 
 .photo-upload.disabled:hover {
-    border-color: rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.03);
+    border-color: #cbd5e1;
+    background: #f1f5f9;
 }
 
 .upload-placeholder {
@@ -117,13 +115,14 @@
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: #64748b;
 }
 
 .upload-placeholder svg {
     width: 40px;
     height: 40px;
-    opacity: 0.5;
+    opacity: 0.7;
+    color: #94a3b8;
 }
 
 .upload-placeholder span {
@@ -132,7 +131,7 @@
 
 .upload-hint {
     font-size: 0.75rem !important;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 .photo-preview {
