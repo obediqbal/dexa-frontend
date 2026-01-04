@@ -21,13 +21,17 @@ export function StaffAttendance() {
     // Date range filters (default to today)
     const [clockInStart, setClockInStart] = useState<string>(() => {
         const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        return today.toISOString().split('T')[0];
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
     });
     const [clockInEnd, setClockInEnd] = useState<string>(() => {
         const today = new Date();
-        today.setHours(23, 59, 59, 999);
-        return today.toISOString().split('T')[0];
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
     });
     const [clockOutStart, setClockOutStart] = useState<string>('');
     const [clockOutEnd, setClockOutEnd] = useState<string>('');
