@@ -103,8 +103,8 @@ export function ClockInOutCard({ todayAttendance, onClockAction }: ClockInOutCar
                     </svg>
                     <span>
                         {!todayAttendance?.clockIn
-                            ? "You haven't clocked in today"
-                            : "You haven't clocked out today"}
+                            ? "Kamu belum clock in hari ini"
+                            : "Kamu belum clock out hari ini"}
                     </span>
                 </div>
             )}
