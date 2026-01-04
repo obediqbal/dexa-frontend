@@ -5,3 +5,4 @@ export { AttendanceCalendar } from './AttendanceCalendar';
 export { DataTable } from './DataTable';
 export { CreateStaffModal } from './CreateStaffModal';
 export { Navbar } from './Navbar';
+export { ImageModal } from './ImageModal';

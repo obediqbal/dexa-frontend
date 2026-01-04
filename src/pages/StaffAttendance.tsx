@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Navbar, DataTable } from '../components';
+import { Navbar, DataTable, ImageModal } from '../components';
 import { staffAttendanceApi } from '../api';
 import { StaffAttendance as StaffAttendanceRecord, StaffAttendanceSortableField } from '../types/staff';
 import { createColumnHelper, SortingState, ColumnFiltersState } from '@tanstack/react-table';
@@ -17,6 +17,9 @@ export function StaffAttendance() {
     const [totalPages, setTotalPages] = useState(0);
     const [sorting, setSorting] = useState<SortingState>([{ id: 'clockIn', desc: true }]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+
+    // Image modal state
+    const [imageModalUrl, setImageModalUrl] = useState<string | null>(null);
 
     // Date range filters (default to today)
     const [clockInStart, setClockInStart] = useState<string>(() => {
@@ -152,6 +155,42 @@ export function StaffAttendance() {
             },
             enableColumnFilter: false,
         }),
+        columnHelper.accessor('clockInPhotoUrl', {
+            header: 'Foto Masuk',
+            cell: info => {
+                const photoUrl = info.getValue();
+                return photoUrl ? (
+                    <button
+                        onClick={() => setImageModalUrl(photoUrl)}
+                        className="photo-icon-button"
+                        title="Lihat foto clock in"
+                    >
+                        📷
+                    </button>
+                ) : (
+                    <span className="photo-icon-disabled">-</span>
+                );
+            },
+            enableColumnFilter: false,
+        }),
+        columnHelper.accessor('clockOutPhotoUrl', {
+            header: 'Foto Keluar',
+            cell: info => {
+                const photoUrl = info.getValue();
+                return photoUrl ? (
+                    <button
+                        onClick={() => setImageModalUrl(photoUrl)}
+                        className="photo-icon-button"
+                        title="Lihat foto clock out"
+                    >
+                        📷
+                    </button>
+                ) : (
+                    <span className="photo-icon-disabled">-</span>
+                );
+            },
+            enableColumnFilter: false,
+        }),
         columnHelper.accessor('staff.isActive', {
             id: 'isActive',
             header: 'Status',
@@ -231,6 +270,12 @@ export function StaffAttendance() {
                     onSortingChange={setSorting}
                     onColumnFiltersChange={setColumnFilters}
                     isLoading={isLoading}
+                />
+
+                <ImageModal
+                    imageUrl={imageModalUrl}
+                    isOpen={!!imageModalUrl}
+                    onClose={() => setImageModalUrl(null)}
                 />
             </main>
         </div>
