@@ -101,6 +101,17 @@
     border-color: rgba(102, 126, 234, 0.4);
 }
 
+.photo-upload.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-style: dashed;
+}
+
+.photo-upload.disabled:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.03);
+}
+
 .upload-placeholder {
     display: flex;
     flex-direction: column;

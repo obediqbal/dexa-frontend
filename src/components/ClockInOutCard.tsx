@@ -92,9 +92,11 @@ export function ClockInOutCard({ todayAttendance, onClockAction }: ClockInOutCar
         return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     };
 
+    const isClockedOut = !!todayAttendance?.clockOut;
+
     return (
         <div className="clock-card">
-            {(!todayAttendance?.clockIn || !todayAttendance?.clockOut) && (
+            {(!todayAttendance?.clockIn || !isClockedOut) && (
                 <div className="attendance-warning">
                     <svg viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
@@ -125,10 +127,10 @@ export function ClockInOutCard({ todayAttendance, onClockAction }: ClockInOutCar
             <div className="photo-section">
                 <label className="photo-label">Bukti foto WFH:</label>
                 <div
-                    className={`photo-upload ${photoPreview ? 'has-photo' : ''}`}
-                    onClick={() => fileInputRef.current?.click()}
-                    onDrop={handleDrop}
-                    onDragOver={handleDragOver}
+                    className={`photo-upload ${photoPreview ? 'has-photo' : ''} ${isClockedOut ? 'disabled' : ''}`}
+                    onClick={() => !isClockedOut && fileInputRef.current?.click()}
+                    onDrop={!isClockedOut ? handleDrop : undefined}
+                    onDragOver={!isClockedOut ? handleDragOver : undefined}
                 >
                     {photoPreview ? (
                         <img src={photoPreview} alt="WFH proof" className="photo-preview" />
@@ -137,8 +139,8 @@ export function ClockInOutCard({ todayAttendance, onClockAction }: ClockInOutCar
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
-                            <span>Upload</span>
-                            <span className="upload-hint">Click or drag photo here</span>
+                            <span>{isClockedOut ? 'Attendance Completed' : 'Upload'}</span>
+                            {!isClockedOut && <span className="upload-hint">Click or drag photo here</span>}
                         </div>
                     )}
                     <input
@@ -147,6 +149,7 @@ export function ClockInOutCard({ todayAttendance, onClockAction }: ClockInOutCar
                         accept="image/*"
                         onChange={handleFileChange}
                         hidden
+                        disabled={isClockedOut}
                     />
                 </div>
             </div>
@@ -156,13 +159,15 @@ export function ClockInOutCard({ todayAttendance, onClockAction }: ClockInOutCar
             <button
                 className={`clock-button ${isClockedIn ? 'clock-out' : 'clock-in'}`}
                 onClick={handleClockAction}
-                disabled={isLoading}
+                disabled={isLoading || isClockedOut}
             >
                 {isLoading ? (
                     <span className="button-loading">
                         <span className="spinner"></span>
                         Processing...
                     </span>
+                ) : isClockedOut ? (
+                    'Attendance Completed'
                 ) : (
                     actionLabel
                 )}
